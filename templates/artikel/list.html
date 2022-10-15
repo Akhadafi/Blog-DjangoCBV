@@ -8,12 +8,14 @@
 <hr />
 {% for artikel in artikel_list %}
 <h3>
-  <a class="nav-link text-black" href="">{{artikel.judul}}</a>
+  <a class="nav-link text-black" href="{% url 'detail' artikel.slug %}"
+    >{{artikel.judul}}
+  </a>
 </h3>
 <p>Kategori: {{artikel.kategori}} | {{artikel.publish|date}}</p>
 <p class="border-bottom">
   {{artikel.isi|truncatewords:80}}
-  <a href="">Selengkapnya</a>
+  <a href="{% url 'detail' artikel.slug %}">Selengkapnya</a>
 </p>
 {% endfor %}
 <hr />

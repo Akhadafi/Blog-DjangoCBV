@@ -1,0 +1,13 @@
+{% extends 'main.html' %}
+<!--  -->
+{% load static %}
+<!--  -->
+{% block pageTitle %}{{ artikel.judul }}{% endblock %}
+<!--  -->
+{% block content %}
+<hr />
+<h3>{{artikel.judul}}</h3>
+<p>Kategori: {{artikel.kategori}} | {{artikel.publish|date}}</p>
+<p class="border-bottom">{{ artikel.isi }}</p>
+<hr />
+{% endblock %}
