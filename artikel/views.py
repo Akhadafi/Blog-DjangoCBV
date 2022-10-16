@@ -7,7 +7,7 @@ class ArtikelKategoriListView(ListView):
     template_name = "artikel/kategori_list.html"
     context_object_name = "artikel_list"
     ordering = ["-publish"]
-    paginate_by = 2
+    paginate_by = 3
 
     def get_queryset(self):
         self.queryset = self.model.objects.filter(kategori=self.kwargs["kategori"])

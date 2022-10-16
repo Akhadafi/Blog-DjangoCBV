@@ -9,6 +9,10 @@ urlpatterns = [
         ArtikelKategoriListView.as_view(),
         name="category",
     ),
-    re_path(r"^artikel/(?P<page>\d+)$", ArtikelListView.as_view(), name="list"),
+    re_path(
+        r"^artikel/(?P<page>\d+)$",
+        ArtikelListView.as_view(),
+        name="list",
+    ),
     path("artikel/<slug:slug>", ArtikelDetailView.as_view(), name="detail"),
 ]

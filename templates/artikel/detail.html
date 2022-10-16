@@ -7,35 +7,59 @@
 {% block content %}
 <hr />
 <div class="row">
-  <div class="col-md-8">
-    <h3>{{artikel.judul}}</h3>
-    <p>Kategori: {{artikel.kategori}} | {{artikel.publish|date}}</p>
-    <p class="border-bottom">{{ artikel.isi }}</p>
+  <div class="col-md-9">
+    <h4 class="text-light text-decoration-none">
+      <b>{{artikel.judul}}</b>
+    </h4>
+    <p class="text-right mt-0">
+      {{artikel.kategori}} | {{artikel.publish|timesince}} ago
+    </p>
+    <p class="text-secondary">{{ artikel.isi }}</p>
+    <hr class="bg-light" />
   </div>
   <div class="col-sm">
-    <ul class="list-group mb-2">
-      <li class="list-group-item active" aria-current="true">Kategori</li>
+    <ul class="list-group border mb-2">
+      <li class="list-group-item bg-dark text-light" aria-current="true">
+        KATEGORI
+      </li>
       {% for kategori in kategori_list %}
-      <li class="list-group-item">
-        <a href="{% url 'category' kategori 1 %}">{{ kategori }}</a>
+      <li class="list-group-item border-top bg-transparent">
+        <a
+          href="{% url 'category' kategori 1 %}"
+          class="text-light text-decoration-none"
+          >{{ kategori }}</a
+        >
       </li>
       {% endfor %}
     </ul>
-    <ul class="list-group">
-      <li class="list-group-item active" aria-current="true">Artikel Serupa</li>
+    <ul class="list-group border">
+      <li class="list-group-item bg-dark text-light" aria-current="true">
+        ARTIKEL SERUPA
+      </li>
       {% for artikel in artikel_serupa %}
       <!--  -->
       {% if forloop.counter is not 3 %}
-      <li class="list-group-item">
-        <a href="{% url 'detail' artikel.slug %}">{{ artikel.judul }}</a>
+      <li class="list-group-item border-top bg-transparent">
+        <a
+          href="{% url 'detail' artikel.slug %}"
+          class="text-light text-decoration-none"
+          >{{ artikel.judul }}</a
+        >
         <br />
-        <span class="text-muted">{{ artikel.publish|date }}</span>
+        <span class="text-muted">Published: {{ artikel.publish|date }}</span>
       </li>
       {% endif %}
       <!--  -->
       {% endfor %}
-      <li class="list-group-item">
-        <a href="{% url 'category' artikel.kategori 1 %}">Selengkapnya</a>
+      <li
+        class="list-group-item border-top"
+        style="background-color: transparent"
+      >
+        <a
+          href="{% url 'category' artikel.kategori 1 %}"
+          class="text-light text-decoration-none"
+          >Selengkapnya</a
+        >
       </li>
     </ul>
   </div>

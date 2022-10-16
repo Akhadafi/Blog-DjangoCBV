@@ -7,72 +7,79 @@
 {% block content %}
 <hr />
 <div class="row">
-  <div class="col-md-8">
-    {% for artikel in artikel_list %}
-    <h3>
-      <a class="text-dark" href="{% url 'detail' artikel.slug %}"
-        >{{artikel.judul}}
-      </a>
-    </h3>
-    <p>Kategori: {{artikel.kategori}} | {{artikel.publish|date}}</p>
-    <p class="border-bottom">
-      {{artikel.isi|truncatewords:30}}
-      <a href="{% url 'detail' artikel.slug %}">Selengkapnya</a>
-    </p>
-    {% endfor %}
-    <!--  -->
+  <div class="col-md-9">
     {% if is_paginated %}
-    <nav aria-label="artikelPage">
-      <ul class="pagination justify-content-end">
+    <div class="d-flex justify-content-end">
+      <div class="btn-group">
         {% if page_obj.has_previous %}
-        <li class="page-item">
-          <a
-            class="page-link"
-            href="{% url 'list' page_obj.previous_page_number %}"
-            >Previous
-          </a>
-        </li>
+        <a
+          class="btn btn-outline-light"
+          href="{% url 'list' page_obj.previous_page_number %}"
+          >Previous
+        </a>
         {% else %}
-        <li class="page-item disabled">
-          <span class="page-link">Previous</span>
-        </li>
+        <span class="btn btn-outline-light">Previous</span>
         {% endif %}
         <!--  -->
         {% for page in paginator.page_range %}
         <!--  -->
         {% if page is page_obj.number %}
-        <li class="page-item active" aria-current="page">
-          <span class="page-link">{{ page }}</span>
-        </li>
+        <span class="btn btn-outline-dark">{{ page }}</span>
         {% else %}
-        <li class="page-item">
-          <a class="page-link" href="{% url 'list' page %}">{{ page }}</a>
-        </li>
+        <a class="btn btn-outline-light" href="{% url 'list' page %}"
+          >{{ page }}
+        </a>
         {% endif %}
         <!--  -->
         {% endfor %}
         <!--  -->
         {% if page_obj.has_next %}
-        <li class="page-item">
-          <a class="page-link" href="{% url 'list' page_obj.next_page_number %}"
-            >Next
-          </a>
-        </li>
+        <a
+          class="btn btn-outline-light"
+          href="{% url 'list' page_obj.next_page_number %}"
+          >Next
+        </a>
         {% else %}
-        <li class="page-item disabled">
-          <span class="page-link">Next</span>
-        </li>
+        <span class="btn btn-outline-light">Next</span>
         {% endif %}
-      </ul>
-    </nav>
+      </div>
+    </div>
     {% endif %}
+    <!--  -->
+    {% for artikel in artikel_list %}
+    <h5>
+      <a
+        class="text-light text-decoration-none"
+        href="{% url 'detail' artikel.slug %}"
+        ><b>{{artikel.judul}}</b>
+      </a>
+    </h5>
+    <p class="text-right my-0">
+      {{artikel.kategori}} | {{artikel.publish|timesince}} ago
+    </p>
+    <p class="text-light">
+      {{artikel.isi|truncatewords:30}}<a
+        class="text-decoration-none text-secondary"
+        href="{% url 'detail' artikel.slug %}"
+        >Selengkapnya</a
+      >
+    </p>
+    <hr class="bg-light" />
+    {% endfor %}
+    <!--  -->
   </div>
   <div class="col-sm">
-    <ul class="list-group">
-      <li class="list-group-item active" aria-current="true">Kategori</li>
+    <ul class="list-group border">
+      <li class="list-group-item bg-dark text-light" aria-current="true">
+        KATEGORI
+      </li>
       {% for kategori in kategori_list %}
-      <li class="list-group-item">
-        <a href="{% url 'category' kategori 1 %}">{{ kategori }}</a>
+      <li class="list-group-item border-top bg-transparent">
+        <a
+          href="{% url 'category' kategori 1 %}"
+          class="text-light text-decoration-none"
+          >{{ kategori }}</a
+        >
       </li>
       {% endfor %}
     </ul>
