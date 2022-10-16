@@ -28,7 +28,7 @@
         <li class="page-item">
           <a
             class="page-link"
-            href="{% url 'list' page_obj.previous_page_number %}"
+            href="{% url 'category' kategori page_obj.previous_page_number %}"
             >Previous
           </a>
         </li>
@@ -46,7 +46,9 @@
         </li>
         {% else %}
         <li class="page-item">
-          <a class="page-link" href="{% url 'list' page %}">{{ page }}</a>
+          <a class="page-link" href="{% url 'category' kategori page %}"
+            >{{ page }}</a
+          >
         </li>
         {% endif %}
         <!--  -->
@@ -54,7 +56,9 @@
         <!--  -->
         {% if page_obj.has_next %}
         <li class="page-item">
-          <a class="page-link" href="{% url 'list' page_obj.next_page_number %}"
+          <a
+            class="page-link"
+            href="{% url 'category' kategori page_obj.next_page_number %}"
             >Next
           </a>
         </li>
@@ -70,6 +74,9 @@
   <div class="col-sm">
     <ul class="list-group">
       <li class="list-group-item active" aria-current="true">Kategori</li>
+      <li class="list-group-item">
+        <a href="{% url 'list' 1 %}">Semua Kategori</a>
+      </li>
       {% for kategori in kategori_list %}
       <li class="list-group-item">
         <a href="{% url 'category' kategori 1 %}">{{ kategori }}</a>
