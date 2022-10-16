@@ -6,15 +6,57 @@
 <!--  -->
 {% block content %}
 <hr />
+{% if is_paginated %}
+<nav aria-label="artikelPage">
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+    <li class="page-item">
+      <a class="page-link" href="{% url 'list' page_obj.previous_page_number %}"
+        >Previous
+      </a>
+    </li>
+    {% else %}
+    <li class="page-item disabled">
+      <span class="page-link">Previous</span>
+    </li>
+    {% endif %}
+    <!--  -->
+    {% for page in paginator.page_range %}
+    <!--  -->
+    {% if page is page_obj.number %}
+    <li class="page-item active" aria-current="page">
+      <span class="page-link">{{ page }}</span>
+    </li>
+    {% else %}
+    <li class="page-item">
+      <a class="page-link" href="{% url 'list' page %}">{{ page }}</a>
+    </li>
+    {% endif %}
+    <!--  -->
+    {% endfor %} {% if page_obj.has_next %}
+    <li class="page-item">
+      <a class="page-link" href="{% url 'list' page_obj.next_page_number %}"
+        >Next
+      </a>
+    </li>
+    {% else %}
+    <li class="page-item disabled">
+      <span class="page-link">Next</span>
+    </li>
+    {% endif %}
+  </ul>
+</nav>
+{% endif %}
+<!--  -->
 {% for artikel in artikel_list %}
 <h3>
-  <a class="nav-link text-black" href="{% url 'detail' artikel.slug %}"
+  <a class="text-dark" href="{% url 'detail' artikel.slug %}"
     >{{artikel.judul}}
   </a>
 </h3>
 <p>Kategori: {{artikel.kategori}} | {{artikel.publish|date}}</p>
 <p class="border-bottom">
-  {{artikel.isi|truncatewords:80}}
+  {{artikel.isi|truncatewords:30}}
   <a href="{% url 'detail' artikel.slug %}">Selengkapnya</a>
 </p>
 {% endfor %}
